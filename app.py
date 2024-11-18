@@ -10,5 +10,5 @@ def greet():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)  # for both local and fly.io use
+    app.run(host='0.0.0.0', port=8080)  # for both local and fly.io use
 
