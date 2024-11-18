@@ -2,16 +2,13 @@ from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
-
 # Simulated database
-
 users = {}
 
 # GET all users or a specific user
 @app.route('/users', methods=['GET'])
 def getUsers():
     user_id = request.args.get('id')
-
     if user_id:
         user = users.get(user_id)
         if user:
@@ -38,6 +35,7 @@ def update_user(user_id):
     users[user_id] = data.get('details')
     return jsonify({'message': 'User updated successfully'}), 200
 
+# DELETE to remove a user
 @app.route('/users/<user_id>', methods=['DELETE'])
 def delete_user(user_id):
     if user_id not in users:
@@ -45,13 +43,11 @@ def delete_user(user_id):
     del users[user_id]
     return jsonify({'message': 'User deleted successfully'}), 200
 
-
+# Root endpoint
 @app.route('/', methods=['GET'])
 def greet():
     name = request.args.get('name', 'World')
     return jsonify({'message': f'Hello, {name}!'})
 
-
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080)  # for both local and fly.io use
-
+    app.run(host='0.0.0.0', port=8080)  # Ensure it runs on the correct port
